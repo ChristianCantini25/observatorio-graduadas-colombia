@@ -1,0 +1,5 @@
+[core]
+    remote = almacenamiento
+['remote "almacenamiento"']
+    url = s3://dvc-observatorio-graduadas-lortiz/dvc
+    region = us-east-1
