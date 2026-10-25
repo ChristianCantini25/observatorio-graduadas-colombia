@@ -1,314 +1,116 @@
-## \# Observatorio de Participación Femenina entre Graduados en Colombia (2020–2025)
+# Observatorio de Participación Femenina entre Graduados en Colombia (2020–2025)
 
-## 
+Proyecto académico de la Universidad de los Andes.
+**Asignatura:** Despliegue de Soluciones Analíticas.
 
-## \## 1. Descripción del proyecto
+## 1. Descripción del proyecto
 
-## 
+Este proyecto analiza la participación femenina entre los graduados de educación superior en Colombia durante 2020–2025, identificando patrones asociados a características académicas, institucionales y geográficas.
 
-## Proyecto académico desarrollado para la asignatura Despliegue de Soluciones Analíticas de la Universidad de los Andes.
+**Pregunta de investigación:**
 
-## 
+¿En qué medida las características académicas, institucionales y geográficas permiten explicar y predecir la proporción de mujeres entre los graduados de educación superior en Colombia durante 2020–2025?
 
-## El objetivo es analizar la participación femenina entre los graduados de educación superior en Colombia durante el período 2020–2025, identificar patrones asociados a características académicas, institucionales y geográficas, y desarrollar posteriormente un modelo predictivo.
+## 2. Fuentes de información
 
-## 
+Se utilizan seis bases anuales del Ministerio de Educación Nacional (SNIES), correspondientes a 2020–2025.
 
-## \### Pregunta de investigación
+Los datos representan conteos agregados de graduados, no registros individuales de estudiantes.
 
-## 
+### Resumen de los datos
 
-## ¿En qué medida las características académicas, institucionales y geográficas permiten explicar y predecir la proporción de mujeres entre los graduados de educación superior en Colombia durante 2020–2025?
+| Indicador | Resultado |
+|---|---:|
+| Período | 2020–2025 |
+| Registros consolidados | 273.485 |
+| Graduados contabilizados | 3.151.769 |
+| Variables procesadas | 15 |
+| Categorías territoriales | 33 |
+| Niveles de formación | 9 |
+| Sectores institucionales | 2 |
 
-## 
+## 3. Estructura del repositorio
 
-## \## 2. Fuentes de información
+| Carpeta o archivo | Descripción |
+|---|---|
+| `data/raw/` | Seis archivos Excel originales |
+| `data/processed/` | Base consolidada y procesada |
+| `notebooks/01_exploracion_graduados.ipynb` | Exploración, limpieza y visualizaciones |
+| `src/prepare_eda.py` | Script de preparación pendiente de validación |
+| `docs/mockup.html` | Maqueta conceptual del dashboard |
+| `data/raw.dvc` | Seguimiento de las bases originales |
+| `data/processed.dvc` | Seguimiento de los datos procesados |
 
-## 
+## 4. Análisis exploratorio
 
-## Se utilizan seis bases anuales de graduados del Ministerio de Educación Nacional de Colombia (SNIES), correspondientes a 2020, 2021, 2022, 2023, 2024 y 2025.
+Se ha estudiado la participación femenina según año, área de conocimiento, departamento, nivel de formación, sector institucional y carácter de la institución.
 
-## 
+### Principales hallazgos preliminares
 
-## Los archivos contienen registros agregados de graduados por características académicas e institucionales. No corresponden a microdatos individuales de estudiantes.
+| Dimensión | Participación femenina |
+|---|---:|
+| Colombia, 2020 | 55,92 % |
+| Colombia, 2025 | 55,30 % |
+| Ciencias de la salud | 70,08 % |
+| Ingeniería y afines | 34,18 % |
+| Doctorado | 41,79 % |
+| Instituciones privadas | 59,03 % |
+| Instituciones oficiales | 52,29 % |
 
-## 
+Los resultados son descriptivos y no implican causalidad.
 
-## \### Consolidación inicial
+## 5. Preparación y calidad de datos
 
-## 
+Las actividades realizadas incluyen:
 
-## \- Período: 2020–2025.
+- Consolidación de seis archivos anuales.
+- Homologación de variables entre períodos.
+- Normalización de departamentos, niveles de formación y sectores.
+- Revisión de valores faltantes y conteos.
+- Validación de duplicados exactos en las fuentes originales.
 
-## \- Registros consolidados: 273.485.
+No se identificaron duplicados exactos en los seis archivos originales. Se conservaron los registros aparentemente repetidos en la base reducida, debido a que pueden corresponder a diferentes programas o sedes.
 
-## \- Personas graduadas contabilizadas: 3.151.769.
+## 6. Herramientas y colaboración
 
-## \- Variables de la base procesada: 15.
+**Git y GitHub:** control de versiones, documentación y contribuciones individuales.
 
-## \- Categorías territoriales normalizadas: 33.
+**DVC:** seguimiento local de las versiones de datos. La configuración del almacenamiento remoto DVC continúa pendiente.
 
-## \- Categorías de nivel de formación normalizadas: 9.
+**OneDrive institucional:** almacenamiento compartido de las seis bases originales y el CSV consolidado, en `Proyecto DSA / Datos`.
 
-## \- Categorías de sector institucional normalizadas: 2.
+Cada integrante trabaja con su propia cuenta de GitHub y registra sus contribuciones mediante commits.
 
-## 
+## 7. Reproducibilidad
 
-## Los resultados corresponden al procesamiento exploratorio inicial y están sujetos a validaciones metodológicas adicionales.
+Para reproducir el análisis exploratorio:
 
-## 
+1. Clonar el repositorio de GitHub.
+2. Descargar los archivos originales desde OneDrive.
+3. Guardarlos en `data/raw/` con los nombres `graduados_2020.xlsx` hasta `graduados_2025.xlsx`.
+4. Abrir `notebooks/01_exploracion_graduados.ipynb` en Jupyter.
+5. Ejecutar las celdas en orden.
 
-## \## 3. Estructura del repositorio
+El script `src/prepare_eda.py` requiere validación adicional para garantizar que reproduce los resultados del notebook.
 
-## 
+## 8. Consideraciones metodológicas
 
-## \- `data/raw/`: contiene los seis archivos originales denominados `graduados\_2020.xlsx` hasta `graduados\_2025.xlsx`.
+- Los datos describen graduados, no trayectorias individuales.
+- La asociación estadística no implica causalidad.
+- La proporción femenina requiere una definición consistente del denominador.
+- Se deben conservar los identificadores necesarios para distinguir programas y sedes.
+- El modelo predictivo deberá evitar fuga de información.
+- Se evaluará la posibilidad de validación temporal del modelo.
 
-## \- `data/processed/graduados\_2020\_2025.csv`: base consolidada y procesada.
+## 9. Estado y próximos pasos
 
-## \- `notebooks/01\_exploracion\_graduados.ipynb`: notebook de exploración, limpieza y análisis descriptivo.
+**Estado actual:** exploración y consolidación inicial de datos, con GitHub y DVC configurados.
 
-## \- `src/prepare\_eda.py`: script de preparación de datos, pendiente de validar frente al procesamiento final realizado en Jupyter.
+Actividades pendientes:
 
-## \- `docs/mockup.html`: primera maqueta conceptual del dashboard.
-
-## \- `data/raw.dvc` y `data/processed.dvc`: archivos utilizados para registrar las versiones de los datos.
-
-## \- `.gitignore`: configuración de exclusiones para Git.
-
-## \- `.dvc/`: configuración de DVC.
-
-## 
-
-## \## 4. Análisis exploratorio realizado
-
-## 
-
-## Se desarrollaron análisis descriptivos de la participación femenina por:
-
-## 
-
-## \- Año de graduación.
-
-## \- Área de conocimiento.
-
-## \- Evolución temporal por área académica.
-
-## \- Departamento de oferta del programa.
-
-## \- Nivel de formación.
-
-## \- Sector institucional.
-
-## \- Carácter de la institución.
-
-## 
-
-## \### Principales hallazgos preliminares
-
-## 
-
-## \- La participación femenina nacional pasó de 55,92 % en 2020 a 55,30 % en 2025.
-
-## \- Ciencias de la salud presentó una participación femenina acumulada de 70,08 %.
-
-## \- Ingeniería, arquitectura, urbanismo y afines presentó una participación femenina acumulada de 34,18 %.
-
-## \- En doctorado, la participación femenina acumulada fue de 41,79 %.
-
-## \- En instituciones privadas, la participación femenina fue de 59,03 %, frente a 52,29 % en instituciones oficiales.
-
-## 
-
-## Estos resultados describen asociaciones observadas y no deben interpretarse como relaciones causales.
-
-## 
-
-## \## 5. Preparación y calidad de datos
-
-## 
-
-## Durante el procesamiento se realizaron las siguientes actividades:
-
-## 
-
-## \- Identificación de hojas y encabezados de los seis archivos.
-
-## \- Selección y homologación de variables.
-
-## \- Estandarización de categorías de sexo.
-
-## \- Normalización de denominaciones territoriales.
-
-## \- Homologación de niveles de formación.
-
-## \- Normalización del sector institucional.
-
-## \- Validación de valores faltantes y conteos.
-
-## \- Revisión de duplicados exactos utilizando todas las columnas de las fuentes originales.
-
-## 
-
-## No se identificaron duplicados exactos en las seis fuentes revisadas.
-
-## 
-
-## Los registros aparentemente duplicados en la base reducida se conservaron, debido a que pueden diferenciarse mediante variables adicionales presentes en los archivos originales, como identificadores de programa o municipio de oferta.
-
-## 
-
-## \## 6. Control de versiones y colaboración
-
-## 
-
-## \### Git y GitHub
-
-## 
-
-## El proyecto utiliza Git para el control de versiones del código, notebooks y documentación.
-
-## 
-
-## Repositorio principal:
-
-## 
-
-## https://github.com/ChristianCantini25/observatorio-graduadas-colombia
-
-## 
-
-## El repositorio es privado y se ha invitado a las integrantes del equipo como colaboradoras.
-
-## 
-
-## Cada integrante debe realizar sus propios commits y documentar sus contribuciones.
-
-## 
-
-## \### DVC
-
-## 
-
-## Se utiliza DVC para registrar las versiones de las bases originales y procesadas.
-
-## 
-
-## DVC se encuentra inicializado y los archivos están registrados localmente.
-
-## 
-
-## La configuración de un almacenamiento remoto DVC compartido todavía está pendiente.
-
-## 
-
-## \### Almacenamiento compartido
-
-## 
-
-## Las bases se encuentran disponibles en la carpeta institucional compartida de OneDrive:
-
-## 
-
-## `Proyecto DSA / Datos`
-
-## 
-
-## Organización:
-
-## 
-
-## \- `Datos/`: seis archivos Excel originales.
-
-## \- `Datos/Procesados/`: archivo CSV consolidado.
-
-## 
-
-## El almacenamiento compartido de OneDrive es independiente de la configuración actual de DVC.
-
-## 
-
-## \## 7. Reproducción del análisis
-
-## 
-
-## Para consultar el análisis ejecutado:
-
-## 
-
-## 1\. Clonar el repositorio de GitHub.
-
-## 2\. Obtener las bases originales desde la carpeta compartida de OneDrive.
-
-## 3\. Guardarlas en `data/raw/` con los nombres establecidos.
-
-## 4\. Instalar las dependencias de Python necesarias.
-
-## 5\. Abrir `notebooks/01\_exploracion\_graduados.ipynb` en Jupyter.
-
-## 6\. Ejecutar las celdas en orden para reproducir el procesamiento y las visualizaciones.
-
-## 
-
-## El script `src/prepare\_eda.py` está pendiente de validación y ajuste para garantizar que reproduzca los resultados del notebook con los archivos actuales.
-
-## 
-
-## \## 8. Consideraciones metodológicas
-
-## 
-
-## \- Los datos describen personas graduadas y no permiten calcular probabilidades individuales de graduación.
-
-## \- Los análisis de asociación no implican causalidad.
-
-## \- La participación femenina se calcula como mujeres graduadas divididas entre el total de graduados.
-
-## \- Deben conservarse categorías de sexo adicionales que estén presentes en las fuentes.
-
-## \- Para el modelo predictivo se deberán evitar variables que produzcan fuga de información.
-
-## \- Se evaluará la pertinencia de una validación temporal del modelo.
-
-## \- La unidad de análisis definitiva deberá considerar las diferencias entre programas y sedes.
-
-## \- Las categorías académicas sin clasificar deberán tratarse de manera explícita.
-
-## 
-
-## \## 9. Próximas actividades
-
-## 
-
-## \- Revisar y ajustar la reproducibilidad del script de preparación.
-
-## \- Completar las validaciones metodológicas del EDA.
-
-## \- Explorar la participación femenina por programa académico.
-
-## \- Definir la unidad de análisis para el modelo supervisado.
-
-## \- Desarrollar y evaluar el modelo predictivo.
-
-## \- Construir la aplicación analítica y su interfaz.
-
-## \- Preparar el despliegue de la solución.
-
-## \- Documentar las contribuciones individuales del equipo.
-
-## 
-
-## \## 10. Estado del proyecto
-
-## 
-
-## \*\*Etapa actual:\*\* Entrega 1 — Exploración de datos, preparación inicial y configuración de herramientas de versionamiento.
-
-## 
-
-## El proyecto cuenta con una primera base consolidada, análisis exploratorio en Jupyter, repositorio GitHub y seguimiento local de datos mediante DVC.
-
-## 
-
-## El modelo predictivo, la aplicación funcional y su despliegue se desarrollarán en las siguientes etapas.
-
+- Validar el script de procesamiento.
+- Completar el análisis por programa académico.
+- Definir la unidad de análisis predictiva.
+- Desarrollar y evaluar el modelo supervisado.
+- Construir y desplegar la solución analítica.
+- Documentar los aportes de cada integrante.
