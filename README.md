@@ -5,11 +5,36 @@ Proyecto académico de la Universidad de los Andes.
 
 ## 1. Descripción del proyecto
 
-Este proyecto analiza la participación femenina entre los graduados de educación superior en Colombia durante 2020–2025, identificando patrones asociados a características académicas, institucionales y geográficas.
+### Problema y contexto
 
-**Pregunta de investigación:**
+En Colombia las mujeres son mayoría entre los graduados de educación superior (56 % en 2020-2025), pero esa cifra agregada esconde brechas profundas. En Ingeniería, arquitectura y afines solo el 34 % de los graduados son mujeres, frente al 70 % en Ciencias de la salud. Además, en áreas como Economía y administración o Ciencias sociales la participación femenina cae con fuerza al pasar del pregrado al doctorado.
 
-¿En qué medida las características académicas, institucionales y geográficas permiten explicar y predecir la proporción de mujeres entre los graduados de educación superior en Colombia durante 2020–2025?
+Estas brechas importan porque la formación determina el acceso a los sectores de mayor crecimiento y mejor remuneración, y porque la equidad de género en educación hace parte de los compromisos de política pública del país (Objetivo de Desarrollo Sostenible 5). Hoy el Ministerio de Educación Nacional (MEN) publica los datos del SNIES, pero no cuenta con una herramienta que identifique, a nivel de programa, dónde la participación femenina es menor a la esperada.
+
+Un modelo predictivo es útil porque permite estimar la participación femenina **esperada** de un programa según sus características (área, nivel, institución, sector y departamento) y compararla con la **observada**. Los programas que quedan muy por debajo de lo esperado son candidatos prioritarios para intervenciones de equidad. Un tablero descriptivo solo muestra promedios; el modelo permite comparar cada programa con sus pares.
+
+### Pregunta de negocio
+
+¿Qué programas, áreas y regiones debería priorizar el MEN para sus acciones de equidad de género en educación superior, según la brecha entre la participación femenina observada y la esperada de acuerdo con sus características académicas, institucionales y geográficas?
+
+**Usuario principal:** Viceministerio de Educación Superior del MEN, área responsable de las políticas de equidad.
+**Usuarios secundarios:** las instituciones de educación superior (IES), que pueden compararse con programas similares de otras instituciones.
+
+**Pregunta analítica (para el modelo):** ¿En qué medida las características académicas, institucionales y geográficas permiten explicar y predecir la proporción de mujeres entre los graduados de educación superior en Colombia durante 2020-2025?
+
+### Alcance del proyecto
+
+**Incluye:**
+- Datos de graduados del SNIES 2020-2025, agregados por programa-año (unidad de análisis).
+- Variable objetivo: proporción de mujeres entre los graduados de cada programa-año.
+- Un modelo supervisado de regresión con validación temporal (entrenamiento con 2020-2023, evaluación con 2024-2025).
+- Un tablero con un panorama descriptivo y un simulador que estima la participación femenina esperada de un programa y la compara con la observada.
+- Despliegue del modelo como API, consumida por el tablero.
+
+**No incluye:**
+- Análisis de causalidad: el modelo identifica asociaciones, no explica por qué existen las brechas.
+- Datos individuales de estudiantes, ni matrícula, deserción o empleabilidad (solo graduados).
+- Diseño o evaluación de las intervenciones de política.
 
 ## 2. Fuentes de información
 
