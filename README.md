@@ -182,7 +182,7 @@ El script `src/prepare_eda.py` requiere validación adicional para garantizar qu
 
 Actividades pendientes:
 
-- Versionar en DVC la base programa-año (`programas_anio.csv`).
+- Versionar en DVC la base programa-año (`programas_anio.csv`). Para esta entrega se subió directamente al repositorio en `data/derivado/`; en la siguiente se versionará con DVC junto con los datos procesados.
 - Entrenar la línea base (regresión lineal ponderada por graduados) con partición temporal.
 - Entrenar el modelo principal (Random Forest y Gradient Boosting) y registrar los experimentos en MLflow.
 - Ajustar hiperparámetros, comparar modelos y analizar la importancia de variables.
