@@ -6,3 +6,5 @@ __pycache__/
 /data/processed/*.csv
 /reports/resumen_eda.json
 /reports/ejecucion.txt
+mlruns/ 
+mlflow.db 
