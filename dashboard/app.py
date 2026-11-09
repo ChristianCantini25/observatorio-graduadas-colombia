@@ -533,7 +533,10 @@ st.info(
 # SIMULADOR PREDICTIVO - INTEGRACION CON FASTAPI
 # --------------------------------------------------
 
+import os
 import requests
+
+from src.predictor import predecir_proporcion
 
 st.divider()
 st.subheader("Simulador de participación femenina esperada")
@@ -544,7 +547,9 @@ st.caption(
     "el Random Forest entrenado con datos del SNIES."
 )
 
-API_URL = "http://127.0.0.1:8001/predict"
+# Si se define una API externa, se utiliza; en Streamlit Cloud
+# el modelo se ejecuta directamente, sin depender de localhost.
+API_URL = os.environ.get("OBSERVATORIO_API_URL", "").strip()
 
 c1, c2 = st.columns(2)
 
@@ -601,14 +606,16 @@ if st.button(
     }
 
     try:
-        respuesta = requests.post(
-            API_URL,
-            json=entrada,
-            timeout=30,
-        )
-
-        respuesta.raise_for_status()
-        resultado = respuesta.json()
+        if API_URL:
+            respuesta = requests.post(
+                API_URL,
+                json=entrada,
+                timeout=30,
+            )
+            respuesta.raise_for_status()
+            resultado = respuesta.json()
+        else:
+            resultado = predecir_proporcion(entrada)
 
         st.success("Predicción generada correctamente.")
 
@@ -623,9 +630,8 @@ if st.button(
             "fuera de muestra en 2024–2025."
         )
 
-    except requests.RequestException:
+    except Exception:
         st.error(
-            "No fue posible conectar con la API predictiva. "
-            "Verifica que FastAPI esté ejecutándose "
-            "en el puerto 8001."
+            "No fue posible generar la predicción. "
+            "Revisa la disponibilidad del modelo o la API configurada."
         )
