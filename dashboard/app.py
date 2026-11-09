@@ -1,6 +1,15 @@
 
 """Tablero del Observatorio de Participación Femenina en Colombia."""
 
+# Streamlit Cloud ejecuta este archivo desde dashboard/;
+# añadir la raíz del repositorio permite importar dashboard y src.
+import sys
+from pathlib import Path
+
+RAIZ_REPOSITORIO = Path(__file__).resolve().parents[1]
+if str(RAIZ_REPOSITORIO) not in sys.path:
+    sys.path.insert(0, str(RAIZ_REPOSITORIO))
+
 import pandas as pd
 import plotly.express as px
 import streamlit as st
