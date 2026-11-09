@@ -5,6 +5,9 @@ from pathlib import Path
 
 import pandas as pd
 import streamlit as st
+import json
+import re
+import unicodedata
 
 
 RAIZ = Path(__file__).resolve().parents[1]
@@ -166,3 +169,33 @@ def resumir_brechas(df, dimension):
     )
 
     return resumen.sort_values("brecha")
+
+RUTA_GEOJSON = RAIZ / "data" / "geo" / "departamentos_colombia.geojson"
+
+
+def normalizar_departamento(texto):
+    """Normaliza tildes y puntuación para cruzar nombres territoriales."""
+    texto = str(texto).upper().strip()
+    texto = unicodedata.normalize("NFD", texto)
+    texto = "".join(
+        caracter for caracter in texto
+        if unicodedata.category(caracter) != "Mn"
+    )
+    texto = re.sub(r"[^A-Z0-9]+", " ", texto)
+    return " ".join(texto.split())
+
+
+@st.cache_data
+def cargar_geografia():
+    """Carga polígonos GeoJSON y añade una llave normalizada."""
+    with open(RUTA_GEOJSON, encoding="utf-8") as archivo:
+        geojson = json.load(archivo)
+
+    for figura in geojson["features"]:
+        figura["properties"]["departamento_clave"] = (
+            normalizar_departamento(
+                figura["properties"]["dpto_nombre"]
+            )
+        )
+
+    return geojson

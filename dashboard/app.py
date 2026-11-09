@@ -12,6 +12,8 @@ from dashboard.datos import (
     calcular_indicadores,
     resumir_dimension,
     resumir_brechas,
+    cargar_geografia,
+    normalizar_departamento,
 )
 
 
@@ -263,6 +265,52 @@ resumen_depto = resumir_dimension(
     filtrada,
     "departamento_normalizado",
 )
+
+
+# Mapa coroplético de participación femenina
+geojson = cargar_geografia()
+
+datos_mapa = resumen_depto.copy()
+datos_mapa["departamento_clave"] = (
+    datos_mapa["departamento_normalizado"]
+    .map(normalizar_departamento)
+)
+
+fig_mapa = px.choropleth_map(
+    datos_mapa,
+    geojson=geojson,
+    locations="departamento_clave",
+    featureidkey="properties.departamento_clave",
+    color="proporcion_mujeres",
+    hover_name="departamento_normalizado",
+    hover_data={
+        "departamento_clave": False,
+        "total": ":,.0f",
+        "proporcion_mujeres": ":.1%",
+    },
+    color_continuous_scale="YlGnBu",
+    range_color=(
+    float(datos_mapa["proporcion_mujeres"].min()),
+    float(datos_mapa["proporcion_mujeres"].max()),
+),
+    map_style="carto-positron",
+    center={"lat": 4.2, "lon": -73.8},
+    zoom=4.7,
+    opacity=0.85,
+    labels={
+        "proporcion_mujeres": "Participación femenina",
+        "total": "Graduados",
+    },
+)
+
+fig_mapa.update_layout(
+    height=650,
+    margin=dict(l=0, r=0, t=0, b=0),
+    coloraxis_colorbar_tickformat=".0%",
+)
+
+st.plotly_chart(fig_mapa, width="stretch")
+
 
 fig_depto = px.bar(
     resumen_depto,
