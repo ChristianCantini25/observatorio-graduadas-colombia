@@ -31,3 +31,6 @@ typing-inspection==0.4.5
 typing_extensions==4.16.0
 tzdata==2026.6
 uvicorn==0.54.0
+plotly==7.1.0
+requests>=2.32,<3
+streamlit==1.67.0
